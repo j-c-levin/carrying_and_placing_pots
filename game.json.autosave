@@ -582,25 +582,10 @@
           "creationTime": 0,
           "disabled": false,
           "folded": true,
-          "name": "Picking up utensils",
+          "name": "Pick up a utensil when the chef isn't carrying anything and the utensil isn't on the stove",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
           "events": [
-            {
-              "disabled": false,
-              "folded": false,
-              "type": "BuiltinCommonInstructions::Comment",
-              "color": {
-                "b": 109,
-                "g": 230,
-                "r": 255,
-                "textB": 0,
-                "textG": 0,
-                "textR": 0
-              },
-              "comment": "Pick up a utensil when the chef isn't carrying anything and the utensil isn't on the stove",
-              "comment2": ""
-            },
             {
               "disabled": false,
               "folded": false,
@@ -736,11 +721,129 @@
           "colorR": 74,
           "creationTime": 0,
           "disabled": false,
-          "folded": false,
+          "folded": true,
           "name": "Remove old utensils from the stove when a new one is added",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
-          "events": [],
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "KeyPressed"
+                  },
+                  "parameters": [
+                    "",
+                    "Space"
+                  ],
+                  "subInstructions": []
+                },
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "Raycast"
+                  },
+                  "parameters": [
+                    "stove",
+                    "chef.X()",
+                    "chef.Y()",
+                    "chef.Angle()",
+                    "50",
+                    "",
+                    "",
+                    ""
+                  ],
+                  "subInstructions": []
+                },
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "VarObjetTxt"
+                  },
+                  "parameters": [
+                    "chef",
+                    "is_carrying",
+                    "!=",
+                    "\"false\""
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "actions": [],
+              "events": [
+                {
+                  "disabled": false,
+                  "folded": false,
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "CollisionPoint"
+                      },
+                      "parameters": [
+                        "pan",
+                        "stove.PointX(\"hob\")",
+                        "stove.PointY(\"hob\")"
+                      ],
+                      "subInstructions": []
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "Delete"
+                      },
+                      "parameters": [
+                        "pan",
+                        ""
+                      ],
+                      "subInstructions": []
+                    }
+                  ],
+                  "events": []
+                },
+                {
+                  "disabled": false,
+                  "folded": false,
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "CollisionPoint"
+                      },
+                      "parameters": [
+                        "pot",
+                        "stove.PointX(\"hob\")",
+                        "stove.PointY(\"hob\")"
+                      ],
+                      "subInstructions": []
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "Delete"
+                      },
+                      "parameters": [
+                        "pot",
+                        ""
+                      ],
+                      "subInstructions": []
+                    }
+                  ],
+                  "events": []
+                }
+              ]
+            }
+          ],
           "parameters": []
         },
         {
